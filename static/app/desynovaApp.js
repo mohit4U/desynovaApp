@@ -4,6 +4,7 @@
 	.config(AppConfig);
 
 	AppConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
+	CheckLogin.$inject = ['$q', 'ApiService'];
 
 	function AppConfig($stateProvider, $urlRouterProvider){
 
@@ -18,11 +19,25 @@
 		state('landingPage', {
 			url: '/landingPage',
 			templateUrl: '/static/app/landingPage/landingPage.html',
-			controller: 'LandingPageCtrl'
+			controller: 'LandingPageCtrl',
+			resolve: {
+				isLoggin: CheckLogin
+			}
 		});
 
 		$urlRouterProvider.otherwise('/login');
 
+	}
+
+	function CheckLogin($q, ApiService){
+		var promise = $q.defer();
+		if(ApiService.getLoginUserDetailsRequest().username && ApiService.getLoginUserDetailsRequest().password){
+			return promise.resolve();
+		}else{
+			window.location.href = '/';
+			return promise.reject();
+		}
+		return promise;
 	}
 
 })();

@@ -21,9 +21,9 @@
 
 		$timeout(function(){
 			$scope.loginUser = ApiService.getLoginUserDetailsRequest();
-			if(!$scope.loginUser.username || !$scope.loginUser.password){
-				$state.go('login');
-			}
+			// if(!$scope.loginUser.username || !$scope.loginUser.password){
+				// $state.go('login');
+			// }
 		});
 
 		$scope.searchUser = function(){
