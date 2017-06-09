@@ -27,13 +27,17 @@
 		});
 
 		$scope.searchUser = function(){
-			config.params.q = $scope.searchString;
-			ApiService.searchUserRequest(config).then(function(response){
-				console.log('$scope.searchUser response ', response);
-				$scope.searchResponse = response;
-			}, function(error){
-				console.log('$scope.searchUser error ', error);
-			})
+			if($scope.searchString){
+				config.params.q = $scope.searchString;
+				ApiService.searchUserRequest(config).then(function(response){
+					console.log('$scope.searchUser response ', response);
+					$scope.searchResponse = response;
+				}, function(error){
+					console.log('$scope.searchUser error ', error);
+				});
+			}else{
+				console.log('empty string !!!');
+			}
 		};
 	}
 
